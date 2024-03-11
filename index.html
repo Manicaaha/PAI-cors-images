@@ -1,0 +1,36 @@
+<script>
+    async function show(){
+        let input = document.getElementById('text').value.toLowerCase()
+        let animalInfo = document.getElementById('div')
+        
+        const response = await fetch(`http://localhost:3000/${input}`)
+        const zoo = await response.json()
+
+        if(input === 'dog' || input === 'cat' || input ==='horse'){
+            let animalImg = zoo.img
+            let attr = zoo.attr
+
+            let imgOfAnimal = document.createElement('img')
+            imgOfAnimal.src = animalImg
+
+            let attrInfo = `<ul><li>Weight: ${attr.weight} </li><li>Max Age: ${attr.maxAge} </li><li>Speed: ${attr.speed} </li></ul>`
+            let attrOfAnimal = document.createElement('div')
+            attrOfAnimal.innerHTML = attrInfo
+
+            animalInfo.innerHTML =  "";
+
+            animalInfo.appendChild(imgOfAnimal)
+            animalInfo.appendChild(attrOfAnimal)
+
+        }
+        else{
+            animalInfo.textContent = "Nuh uh"
+        }
+    }
+</script>
+<html>
+    <p>
+    <input type="text" id="text">
+    <button onclick="show()">pokaż</button></p> 
+    <div id="div"></div>
+</html>
